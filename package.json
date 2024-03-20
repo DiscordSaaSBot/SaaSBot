@@ -1,0 +1,21 @@
+{
+  "name": "saasbot",
+  "version": "1.0.0",
+  "description": "Este bot está orientado a compartir proyectos de SaaS, el bot es accesible en discord y permite a tu comunidad mostrar sus proyectos, y además a otros usuarios votar por ellos.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "npx tsc -b . && node dist/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^5.4.2"
+  },
+  "dependencies": {
+    "discord.js": "^14.14.1",
+    "dotenv": "^16.4.5",
+    "glob": "^10.3.10"
+  }
+}
