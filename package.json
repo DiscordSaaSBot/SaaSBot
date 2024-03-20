@@ -5,12 +5,13 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "npx tsc -b . && node dist/index.js"
+    "start": "rimraf dist/ && npx tsc --build . && node dist/index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "rimraf": "^5.0.5",
     "typescript": "^5.4.2"
   },
   "dependencies": {

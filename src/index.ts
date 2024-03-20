@@ -1,10 +1,11 @@
-import {Client, REST} from "discord.js";
+import {REST} from "discord.js";
 import {Routes} from "discord-api-types/v10";
 import {glob} from "glob";
 import {fileURLToPath} from "node:url";
 import {join, dirname, resolve} from "node:path";
 import SlashCommand from "./modules/SlashCommand.js";
 import EventHandler from "./modules/EventHandler.js";
+import CustomClient from "./modules/CustomClient.js";
 
 (await import("dotenv")).config({path: ".env"});
 
@@ -19,26 +20,23 @@ async function registerFiles<T>
 	}
 }
 
-const client: Client = new Client({
-	intents: 32767
-});
+const client: CustomClient = new CustomClient();
 
-const commands: SlashCommand[] = [];
+client.commands = [];
 await registerFiles<SlashCommand>("commands", (ctor): void => {
-	commands.push(new (<any>ctor)(client));
+	client.commands.push(new (<any>ctor)(client));
 });
 
 await (new REST()
 	.setToken(<string>process.env.DISCORD_TOKEN)
 	.put(
 		Routes.applicationCommands(<string>process.env.DISCORD_CLIENT_ID),
-		{ body: commands.map((c: SlashCommand) => c.build.toJSON()) }
+		{ body: client.commands.map((c: SlashCommand) => c.build.toJSON()) }
 	));
 
 await registerFiles<EventHandler>("events", (ctor): void => {
-	const eventInstance: EventHandler = new (<any>ctor)();
-	console.log(eventInstance);
-	client.on(eventInstance.eventType, eventInstance.invoke);
+	const eventInstance: EventHandler = new (<any>ctor)(client);
+	client.on(eventInstance.eventType, eventInstance.invoke.bind(eventInstance));
 });
 
 await client.login(<string>process.env.DISCORD_TOKEN);
