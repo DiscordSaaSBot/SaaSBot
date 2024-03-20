@@ -1,10 +1,12 @@
-import SlashCommand from "../modules/Command.js";
+import SlashCommand from "../modules/SlashCommand.js";
 import { SlashCommandBuilder } from "discord.js";
 export default class extends SlashCommand {
-    get Build() {
+    get build() {
         return new SlashCommandBuilder()
-            .setName("test");
+            .setName("test")
+            .setDescription("yes this is a test!");
     }
-    run() {
+    async run() {
+        await this.context.reply("yes!");
     }
 }
