@@ -1,29 +1,43 @@
-import {Client, Events} from "discord.js";
+import {REST} from "discord.js";
+import {Routes} from "discord-api-types/v10";
 import {glob} from "glob";
 import {fileURLToPath} from "node:url";
 import {join, dirname, resolve} from "node:path";
-import SlashCommand from "./modules/Command.js";
+import SlashCommand from "./modules/SlashCommand.js";
+import EventHandler from "./modules/EventHandler.js";
+import CustomClient from "./modules/CustomClient.js";
 
 (await import("dotenv")).config({path: ".env"});
 
 const dirName: string = dirname(fileURLToPath(import.meta.url));
 
-async function getSubFolder(name: string): Promise<string[]> {
-	return glob(join(dirName, name) + "/**/*");
+async function registerFiles<T>
+(subFolder: string, callback: (ctor: new (...args: any[]) => T) => void) {
+	for (const handlerCtor of await glob(join(dirName, subFolder) + "/**/*")) {
+		// do this to avoid unresolved route in WebStorm.
+		const moduleName: string = `file://${resolve(handlerCtor)}`;
+		callback((await import(moduleName)).default);
+	}
 }
 
-// export const client: Client = new Client({
-// 	intents: 32767
-// });
+const client: CustomClient = new CustomClient();
 
-const commands: Set<SlashCommand> = new Set();
-for (const command of await getSubFolder("commands")) {
-	const module = (await import(`file://${resolve(command)}`)).default;
+client.commands = [];
+await registerFiles<SlashCommand>("commands", (ctor): void => {
+	client.commands.push(new (<any>ctor)(client));
+});
 
-	if (module instanceof SlashCommand)
-		commands.add(module);
-}
+await (new REST()
+	.setToken(<string>process.env.DISCORD_TOKEN)
+	.put(
+		Routes.applicationCommands(<string>process.env.DISCORD_CLIENT_ID),
+		{ body: client.commands.map((c: SlashCommand) => c.build.toJSON()) }
+	));
 
-for (const command of commands) {
-	console.log(command.Build.name)
-}
+await registerFiles<EventHandler>("events", (ctor): void => {
+	const eventInstance: EventHandler = new (<any>ctor)(client);
+	client.on(eventInstance.eventType, eventInstance.invoke.bind(eventInstance));
+});
+
+await client.login(<string>process.env.DISCORD_TOKEN);
+

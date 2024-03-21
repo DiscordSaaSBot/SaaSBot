@@ -1,13 +1,14 @@
-import SlashCommand, { CommandBuilder } from "../modules/Command.js";
+import SlashCommand from "../modules/SlashCommand.js";
 import {SlashCommandBuilder} from "discord.js";
 
 export default class extends SlashCommand {
-    public get Build(): CommandBuilder {
+    public get build(): SlashCommandBuilder {
         return new SlashCommandBuilder()
-            .setName("test");
+            .setName("test")
+            .setDescription("yes this is a test!");
     }
 
-    public run(): void | Promise<void> {
-
+    public async run(): Promise<void> {
+        await this.context!.reply("yes!")
     }
 }
