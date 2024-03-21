@@ -1,7 +1,7 @@
-import SlashCommand from "../modules/handlers/SlashCommand.js";
+import InteractionHandlers from "../../modules/handlers/InteractionHandlers.js";
 import {SlashCommandBuilder} from "discord.js";
 
-export default class extends SlashCommand {
+export default class extends InteractionHandlers {
 	public get build(): SlashCommandBuilder {
 		return new SlashCommandBuilder()
 			.setName("test")

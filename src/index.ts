@@ -3,7 +3,7 @@ import {Routes} from "discord-api-types/v10";
 import {glob} from "glob";
 import {fileURLToPath} from "node:url";
 import {join, dirname, resolve} from "node:path";
-import SlashCommand from "./modules/handlers/SlashCommand.js";
+import {BuildableInteraction, RawInteraction,} from "./modules/handlers/InteractionHandlers.js";
 import EventHandler from "./modules/handlers/EventHandler.js";
 import CustomClient from "./modules/CustomClient.js";
 
@@ -23,7 +23,7 @@ async function registerFiles<T>
 const client: CustomClient = new CustomClient();
 
 client.commands = [];
-await registerFiles<SlashCommand>("commands", (ctor): void => {
+await registerFiles<RawInteraction<any>>("commands", (ctor): void => {
 	client.commands.push(new (<any>ctor)(client));
 });
 
@@ -31,7 +31,12 @@ await (new REST()
 	.setToken(<string>process.env.DISCORD_TOKEN)
 	.put(
 		Routes.applicationCommands(<string>process.env.DISCORD_CLIENT_ID),
-		{ body: client.commands.map((c: SlashCommand) => c.build.toJSON()) }
+		{ body: client.commands
+				.map((c: RawInteraction<any>) =>
+					c instanceof BuildableInteraction ? c.build.toJSON() : null
+				)
+				.filter(c => c !== null)
+		}
 	));
 
 await registerFiles<EventHandler>("events", (ctor): void => {

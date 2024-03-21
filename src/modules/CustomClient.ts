@@ -1,8 +1,8 @@
 import {Client} from "discord.js";
-import SlashCommand from "./handlers/SlashCommand.js";
+import {RawInteraction} from "./handlers/InteractionHandlers.js";
 
 export default class CustomClient extends Client {
-	public commands: SlashCommand[] = [];
+	public commands: RawInteraction<any>[] = [];
 
 	public constructor() {
 		super({

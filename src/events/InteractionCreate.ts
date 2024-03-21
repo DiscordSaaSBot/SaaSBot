@@ -1,10 +1,14 @@
 import EventHandler from "../modules/handlers/EventHandler.js";
-import SlashCommand from "../modules/handlers/SlashCommand.js";
+import {
+	SlashCommand,
+	UserCommand,
+	RawInteraction
+} from "../modules/handlers/InteractionHandlers.js";
 import {
 	ChatInputCommandInteraction,
 	ClientEvents,
 	CommandInteraction,
-	Events
+	Events, SlashCommandBuilder
 } from "discord.js";
 
 export default class extends EventHandler {
@@ -14,11 +18,16 @@ export default class extends EventHandler {
 
 	public async invoke(interaction: CommandInteraction): Promise<void> {
 		if (interaction.isChatInputCommand()) {
-			const command: SlashCommand | undefined = this.client.commands
-				.find(c => c.build.name === interaction.commandName)
+			// const command: SlashCommand | undefined = this.client.commands
+			// 	.find((c: unknown): boolean =>
+			// 		c instanceof SlashCommand &&
+			// 		c.build.name === interaction.commandName
+			// 	)
+			//
+			// if (command !== undefined)
+			// 	command.invoke(<ChatInputCommandInteraction>interaction);
+		} else if (interaction.isUserContextMenuCommand()) {
 
-			if (command !== undefined)
-				command.invoke(<ChatInputCommandInteraction>interaction);
 		}
 	}
 }
