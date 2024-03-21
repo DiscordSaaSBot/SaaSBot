@@ -4,4 +4,8 @@ Este bot está orientado a compartir proyectos de SaaS, el bot es accesible en d
 
 Este bot es completamente de código abierto y siempre disponible para cualquier contribución.
 
-La idea está en el servidor de [Discord de Alex Craviotto](https://discord.gg/XRAmBzHhYa), ahi se harán todas las votaciones y se darán todas las noticias relacionadas con el proyecto.
+La idea está en el servidor de [Discord de Alex Craviotto](https://discord.gg/XRAmBzHhYa), allí se harán todas las votaciones y se darán todas las noticias relacionadas con el proyecto.
+
+## Contribuir al bot
+
+Por favor, lee `CONTRIBUTING.md` para ver las reglas de contribution a este proyecto.

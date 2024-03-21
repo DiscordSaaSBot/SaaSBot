@@ -1,5 +1,5 @@
-import EventHandler from "../modules/EventHandler.js";
-import SlashCommand from "../modules/SlashCommand.js";
+import EventHandler from "../modules/handlers/EventHandler.js";
+import SlashCommand from "../modules/handlers/SlashCommand.js";
 import {
 	ChatInputCommandInteraction,
 	ClientEvents,
@@ -8,11 +8,11 @@ import {
 } from "discord.js";
 
 export default class extends EventHandler {
-	get eventType(): keyof ClientEvents {
+	public get eventType(): keyof ClientEvents {
 		return Events.InteractionCreate;
 	}
 
-	async invoke(interaction: CommandInteraction): Promise<void> {
+	public async invoke(interaction: CommandInteraction): Promise<void> {
 		if (interaction.isChatInputCommand()) {
 			const command: SlashCommand | undefined = this.client.commands
 				.find(c => c.build.name === interaction.commandName)
