@@ -1,4 +1,4 @@
-import CustomClient from "./CustomClient.js";
+import CustomClient from "../CustomClient.js";
 
 export default abstract class BaseHandler {
 	/**

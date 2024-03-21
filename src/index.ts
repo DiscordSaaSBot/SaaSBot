@@ -3,8 +3,8 @@ import {Routes} from "discord-api-types/v10";
 import {glob} from "glob";
 import {fileURLToPath} from "node:url";
 import {join, dirname, resolve} from "node:path";
-import SlashCommand from "./modules/SlashCommand.js";
-import EventHandler from "./modules/EventHandler.js";
+import SlashCommand from "./modules/handlers/SlashCommand.js";
+import EventHandler from "./modules/handlers/EventHandler.js";
 import CustomClient from "./modules/CustomClient.js";
 
 (await import("dotenv")).config({path: ".env"});
