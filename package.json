@@ -6,19 +6,20 @@
   "type": "module",
   "scripts": {
     "start": "rimraf dist/ && npx tsc --build . && node dist/index.js",
-    "lint": "eslint src/*/** --ext .ts --fix"
+    "lint": "eslint \"**/*.{ts,tsx}\" --fix"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^7.3.1",
-    "@typescript-eslint/parser": "^7.3.1",
+    "@types/winston": "^2.4.4",
     "eslint": "^8.57.0",
     "rimraf": "^5.0.5",
     "typescript": "^5.4.2"
   },
   "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^7.3.1",
+    "@typescript-eslint/parser": "^7.3.1",
     "discord-api-types": "^0.37.75",
     "discord.js": "^14.14.1",
     "dotenv": "^16.4.5",
