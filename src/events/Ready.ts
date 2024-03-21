@@ -1,5 +1,6 @@
 import EventHandler from "../modules/handlers/EventHandler.js";
 import {ClientEvents, Events} from "discord.js";
+import { logger } from "../utils/logger.js";
 
 export default class extends EventHandler {
 	public get eventType(): keyof ClientEvents {
@@ -7,6 +8,6 @@ export default class extends EventHandler {
 	}
 
 	public invoke(): void{
-		console.log("Client Ready!");
+		logger.info("Client Ready!")
 	}
 }
