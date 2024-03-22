@@ -14,11 +14,11 @@
          alt="Version">
   </a>
   <a href="https://github.com/your-username/your-repo/issues">
-    <img src="https://img.shields.io/github/issues/your-username/your-repo.svg"
+    <img src="https://img.shields.io/github/issues/DiscordSaaSBot/SaaSBot.svg"
          alt="Issues">
   </a>
   <a href="https://github.com/your-username/your-repo/pulls">
-    <img src="https://img.shields.io/github/issues-pr/your-username/your-repo.svg"
+    <img src="https://img.shields.io/github/issues-pr/DiscordSaaSBot/SaaSBot.svg"
          alt="Pull Requests">
   </a>
 
