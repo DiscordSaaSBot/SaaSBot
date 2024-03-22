@@ -32,6 +32,12 @@ export default new SlashCommand({
             
 		})
 
+		if(!category) {
+			this.context.reply("No se ha podido crear la categoría de estadísticas")
+			logger.error("Error creating the category in the setup-stats command for the guild " + guild.name + " with ID " + guild.id)
+			return
+		}
+
 		const totalMembers = guild.memberCount
 		const totalUsers = guild.members.cache.filter(member => !member.user.bot).size
 		const totalBots = guild.members.cache.filter(member => member.user.bot).size
