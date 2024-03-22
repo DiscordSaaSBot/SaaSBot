@@ -21,10 +21,10 @@ jobs:
           node --version
           npm --version
           npx commitlint --version
-      - name: Install commitlint
+      - name: Install commitlint and @commitlint/config-conventional
         run: |
           npm install -g conventional-changelog-conventionalcommits
-          npm install -g commitlint@latest
+          npm install -g @commitlint/cli @commitlint/config-conventional
 
       - name: Validate current commit (last commit) with commitlint
         if: github.event_name == 'push'
