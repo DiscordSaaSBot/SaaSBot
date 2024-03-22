@@ -1,8 +1,9 @@
 import {Client} from "discord.js";
-import SlashCommand from "./handlers/SlashCommand.js";
+import {CommandTypes, ComponentTypes} from "./handlers/HandlerBuilders.js";
 
 export default class CustomClient extends Client {
-	public commands: SlashCommand[] = [];
+	public commands: CommandTypes[] = [];
+	public components: ComponentTypes[] = [];
 
 	public constructor() {
 		super({
