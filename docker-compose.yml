@@ -1,0 +1,12 @@
+version: '3'
+services:
+  saasbot:
+    build: .
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    command: node dist/index.js
+    environment:
+      NODE_ENV: development
+    ports:
+      - "3000:3000"
