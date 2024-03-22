@@ -1,13 +1,11 @@
-import EventHandler from "../modules/handlers/EventHandler.js";
-import {ClientEvents, Events} from "discord.js";
-import { logger } from "../utils/logger.js";
+import {Event} from "../modules/handlers/HandlerBuilders.js";
+import {Events} from "discord.js";
+import {logger} from "../modules/utils/logger.js";
 
-export default class extends EventHandler {
-	public get eventType(): keyof ClientEvents {
-		return Events.ClientReady;
-	}
+export default new Event({
+	event: Events.ClientReady,
 
-	public invoke(): void{
-		logger.info("Client Ready!")
+	handler(): void {
+		logger.info("Client ready!");
 	}
-}
+});
