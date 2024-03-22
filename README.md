@@ -61,7 +61,7 @@ To add the SaaS Discord Bot to your server, simply follow the steps outlined bel
 
 ## Contributing
 
-We welcome contributions from the community to help improve and expand the functionality of the SaaS Discord Bot. Please refer to the [CONTRIBUTING.md](link) file for guidelines on contributing to this project.
+We welcome contributions from the community to help improve and expand the functionality of the SaaS Discord Bot. Please refer to the CONTRIBUTING.md file for guidelines on contributing to this project.
 
 ## Contact
 
