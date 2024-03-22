@@ -1,39 +1,41 @@
 import { SlashCommand } from "../../modules/handlers/HandlerBuilders.js";
-import { ChannelType, SlashCommandBuilder } from "discord.js";
+import { ChannelType, PermissionFlagsBits, SlashCommandBuilder } from "discord.js";
 import { logger } from "../../modules/utils/logger.js";
 
 export default new SlashCommand({
 	builder: new SlashCommandBuilder()
 		.setName("setup-stats")
-		.setDescription("Setear el canal de estadísticas del servidor"),
+		.setDescription("Setear el canal de estadísticas del servidor")
+		.setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
 
 	async handler(): Promise<void> {
 		const guildId = this.context.guildId;
 		if (!guildId) { 
-			this.context.reply("No se ha podido obtener el ID del servidor"); 
+			await this.context.reply("No se ha podido obtener el ID del servidor"); 
 			logger.error("No se ha podido obtener el ID del servidor");
 			return; 
 		}
 		const guild = this.client.guilds.cache.get(guildId)
 		if (!guild) { 
-			this.context.reply("No se ha podido obtener el servidor"); 
+			await this.context.reply("No se ha podido obtener el servidor"); 
 			logger.error("No se ha podido obtener el servidor");
 			return; 
 		}
 		const categoryExists = guild.channels.cache.find(channel => channel.type === ChannelType.GuildCategory && channel.name === "Estadisticas")
 		if (categoryExists) {
-			this.context.reply("Ya existe una categoría de estadísticas en el servidor")
+			await this.context.reply("Ya existe una categoría de estadísticas en el servidor")
 			return
 		}
 		const category = await guild.channels.create({
 			name: "Estadisticas",
 			type: ChannelType.GuildCategory,
-			position: 1,
+			position: 0,
+		
             
 		})
 
 		if(!category) {
-			this.context.reply("No se ha podido crear la categoría de estadísticas")
+			await this.context.reply("No se ha podido crear la categoría de estadísticas")
 			logger.error("Error creating the category in the setup-stats command for the guild " + guild.name + " with ID " + guild.id)
 			return
 		}
@@ -78,6 +80,6 @@ export default new SlashCommand({
 			]
 		})
 
-		this.context.reply(`Canal de estadísticas creado en la categoría ${category}`)
+		await this.context.reply(`Canal de estadísticas creado en la categoría ${category}`)
 	}
 });

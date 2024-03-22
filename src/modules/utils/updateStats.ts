@@ -4,12 +4,13 @@ import { BaseContext } from "../handlers/HandlerContext.js";
 
 export default async function updateStats(context: BaseContext, member: GuildMember) {
 	const guildId = member.guild.id;
-	const guild = context.client.guilds.cache.get(guildId)
-	const statsCategory = guild?.channels.cache.find(channel => channel.type === ChannelType.GuildCategory && channel.name === "Estadisticas")
+	const guild = await context.client.guilds.fetch(guildId);
 	if (!guild) { 
 		logger.error("Error getting the guild from the cache in the GuildMemberAdd event handler for the user " + member.user.tag + " with ID " + member.user.id);
 		return; 
 	}
+	const statsCategory = guild.channels.cache.find(channel => channel.type === ChannelType.GuildCategory && channel.name === "Estadisticas")
+
 	if(member.user.bot) {
 		const botsChannel = guild.channels.cache.find(channel => channel.name.includes("Bots:") && channel.parentId === statsCategory?.id)
 		if(!botsChannel) {
