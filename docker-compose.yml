@@ -8,5 +8,3 @@ services:
     command: node dist/index.js
     environment:
       NODE_ENV: development
-    ports:
-      - "3000:3000"
