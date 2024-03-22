@@ -1,33 +1,58 @@
-import EventHandler from "../modules/handlers/EventHandler.js";
 import {
+	CommandTypes,
+	Event,
 	SlashCommand,
 	UserCommand,
-	RawInteraction
-} from "../modules/handlers/InteractionHandlers.js";
+	SelectMenuInteraction as InternalSelectMenuInteraction,
+	ComponentTypes
+} from "../modules/handlers/HandlerBuilders.js";
 import {
+	ButtonInteraction,
 	ChatInputCommandInteraction,
-	ClientEvents,
-	CommandInteraction,
-	Events, SlashCommandBuilder
+	Events,
+	Interaction,
+	SelectMenuInteraction,
+	UserContextMenuCommandInteraction
 } from "discord.js";
 
-export default class extends EventHandler {
-	public get eventType(): keyof ClientEvents {
-		return Events.InteractionCreate;
-	}
+export default new Event({
+	event: Events.InteractionCreate,
 
-	public async invoke(interaction: CommandInteraction): Promise<void> {
-		if (interaction.isChatInputCommand()) {
-			// const command: SlashCommand | undefined = this.client.commands
-			// 	.find((c: unknown): boolean =>
-			// 		c instanceof SlashCommand &&
-			// 		c.build.name === interaction.commandName
-			// 	)
-			//
-			// if (command !== undefined)
-			// 	command.invoke(<ChatInputCommandInteraction>interaction);
-		} else if (interaction.isUserContextMenuCommand()) {
+	handler(interaction: Interaction): void {
+		let command: CommandTypes | ComponentTypes | undefined = undefined;
 
+		if (interaction instanceof ChatInputCommandInteraction) {
+			command = <SlashCommand>this.client.commands
+				.find((i: CommandTypes): boolean =>
+					i instanceof SlashCommand
+					&& i.parameters.builder.name === interaction.commandName
+				)
+
+			command.context = {
+				context: interaction,
+				client: this.client
+			}
+		} else if (interaction instanceof UserContextMenuCommandInteraction) {
+			command = <UserCommand>this.client.commands
+				.find((i: CommandTypes): boolean =>
+					i instanceof UserCommand
+					&& i.parameters.builder.name === interaction.commandName
+				)
+
+			command.context = {
+				context: interaction,
+				client: this.client
+			}
+		} else if (
+			interaction instanceof SelectMenuInteraction
+			|| interaction instanceof ButtonInteraction
+		) {
+			command = <InternalSelectMenuInteraction>this.client.components
+				.find((i: ComponentTypes): boolean =>
+					i.parameters.componentId === interaction.customId
+				)
 		}
+
+		command?.parameters.handler.bind(command?.context)();
 	}
-}
+});

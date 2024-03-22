@@ -1,14 +1,12 @@
-import InteractionHandlers from "../../modules/handlers/InteractionHandlers.js";
+import {SlashCommand} from "../../modules/handlers/HandlerBuilders.js";
 import {SlashCommandBuilder} from "discord.js";
 
-export default class extends InteractionHandlers {
-	public get build(): SlashCommandBuilder {
-		return new SlashCommandBuilder()
-			.setName("test")
-			.setDescription("yes this is a test!");
-	}
+export default new SlashCommand({
+	builder: new SlashCommandBuilder()
+		.setName("test")
+		.setDescription("this is a test command!"),
 
-	public async run(): Promise<void> {
-		await this.context!.reply("yes!")
+	async handler(): Promise<void> {
+		await this.context.reply("This is a test!");
 	}
-}
+});
