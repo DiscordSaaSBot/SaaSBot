@@ -16,7 +16,7 @@ export default new Event({
 		let currentStatus: number = 0;
 		function changeStatus(this: EventContext): void {
 			this.client.user!.setActivity(
-				presences[currentStatus + 1 === presences.length ? 0 : currentStatus++]
+presences[++currentStatus === presences.length ? 0 : currentStatus]
 			);
 		}
 
