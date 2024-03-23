@@ -1,15 +1,13 @@
 name: Publish Docker Image
 
 on:
-  pull_request:
+  push:
     branches:
       - stage
-    types:
-      - closed
 
 jobs:
   if_merged:
-    if: github.event.pull_request.merged == true
+    if: github.event_name == 'push' && github.ref_type == 'branch' && github.ref == 'refs/heads/stage' && github.event.head_commit.message =~ '^Merge '
     name: Push Docker image to Docker Hub
     runs-on: ubuntu-latest
     steps:
