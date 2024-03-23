@@ -80,6 +80,6 @@ export default new SlashCommand({
 			]
 		})
 
-		await this.context.reply(`Canal de estadísticas creado en la categoría ${category}`)
+		await this.context.reply(`Canal de estadísticas creado correctamente`)
 	}
 });
