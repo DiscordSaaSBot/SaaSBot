@@ -1,5 +1,11 @@
-import {Events, Interaction, SlashCommandBuilder} from "discord.js";
-import {BaseContext, ButtonContext, CommandContext, EventContext, SelectMenuContext} from "./HandlerContext.js";
+import {Events, Interaction, SlashCommandSubcommandsOnlyBuilder} from "discord.js";
+import {
+	BaseContext,
+	ButtonContext,
+	CommandContext,
+	EventContext,
+	SelectMenuContext
+} from "./HandlerContext.js";
 
 export interface BaseParameters<TThis extends BaseContext> {
 	handler: (this: TThis, ...params: any[]) => Promise<void> | void;
@@ -8,7 +14,7 @@ export interface BaseParameters<TThis extends BaseContext> {
 export interface CommandParameters<TInteraction extends Interaction>
 	extends BaseParameters<CommandContext<TInteraction>> {
 
-	builder: SlashCommandBuilder;
+	builder: SlashCommandSubcommandsOnlyBuilder;
 }
 
 export interface EventParameters
