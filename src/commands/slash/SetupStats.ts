@@ -41,6 +41,7 @@ export default new SlashCommand({
 		}
 
 		const totalMembers = guild.memberCount
+		await guild.members.fetch();
 		const totalUsers = guild.members.cache.filter(member => !member.user.bot).size
 		const totalBots = guild.members.cache.filter(member => member.user.bot).size
 
