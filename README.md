@@ -13,11 +13,11 @@
     <img src="https://badge.fury.io/js/electron-markdownify.svg"
          alt="Version">
   </a>
-  <a href="https://github.com/your-username/your-repo/issues">
+  <a href="https://github.com/DiscordSaaSBot/SaaSBot/issues">
     <img src="https://img.shields.io/github/issues/DiscordSaaSBot/SaaSBot.svg"
          alt="Issues">
   </a>
-  <a href="https://github.com/your-username/your-repo/pulls">
+  <a href="https://github.com/DiscordSaaSBot/SaaSBot/pulls">
     <img src="https://img.shields.io/github/issues-pr/DiscordSaaSBot/SaaSBot.svg"
          alt="Pull Requests">
   </a>
