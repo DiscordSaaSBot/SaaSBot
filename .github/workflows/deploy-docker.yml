@@ -1,4 +1,4 @@
-name: Publish Docker Image
+name: Publish Docker Image and update bot's server
 
 on:
   pull_request:
@@ -36,3 +36,10 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+
+      - name: Update container in bot's server
+        if: success()
+        run: |
+          curl -X POST -H "Content-Type: application/json" -d '{"image": "alexcrav/saasbot"}' $WEBHOOK_SERVER
+        env:
+          WEBHOOK_SERVER: ${{ secrets.WEBHOOK_SERVER }}
