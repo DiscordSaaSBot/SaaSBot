@@ -64,3 +64,10 @@ export const logger = createLogger({
 		})
 	]
 });
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export function notifyError(error: Error): void {
+	// add a notification system and remove the eslint override.
+	// the console logging is already done, this should send a message
+	// to someone who can take care about the bot throwing an error.
+}

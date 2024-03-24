@@ -11,6 +11,7 @@ import {
 	ComponentTypes,
 	UserCommand
 } from "./modules/handlers/HandlerBuilders.js";
+import {logger, notifyError} from "./modules/utils/logger.js";
 
 (await import("dotenv")).config({path: ".env"});
 
@@ -46,13 +47,20 @@ await (new REST()
 	));
 
 await registerFiles<Event>("events", (imported: Event): void => {
-	imported.context = {
-		client
+	function eventWrapper(): Promise<void> | void {
+		try {
+			return imported.parameters.handler.call(imported.context);
+		} catch (error: any) {
+			logger.error(`The event ${imported.parameters.event} threw an error: ${error}`);
+			notifyError(error);
+		}
 	}
+
+	imported.context = { client };
 
 	client.on(
 		<keyof ClientEvents>imported.parameters.event,
-		imported.parameters.handler.bind(imported.context)
+		eventWrapper
 	);
 });
 
