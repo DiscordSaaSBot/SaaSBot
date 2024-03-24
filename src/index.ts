@@ -47,13 +47,29 @@ await (new REST()
 	));
 
 await registerFiles<Event>("events", (imported: Event): void => {
-	function eventWrapper(): Promise<void> | void {
-		try {
-			return imported.parameters.handler.call(imported.context);
-		} catch (error: any) {
-			logger.error(`The event ${imported.parameters.event} threw an error: ${error}`);
-			notifyError(error);
-		}
+	function eventWrapper(...params: any[]): void {
+		new Promise<void>((resolve, reject) => {
+			try {
+				const handlerResult: Promise<void> | void
+					= imported.parameters.handler.call(imported.context, ...params);
+
+				if (handlerResult instanceof Promise) {
+					handlerResult
+						.then(resolve)
+						.catch(reject);
+
+					return;
+				}
+
+				resolve();
+			} catch (error: any) {
+				reject(error);
+			}
+		})
+			.catch((error: Error): void => {
+				logger.error(`The event ${imported.parameters.event} threw an error: ${error}`);
+				notifyError(error);
+			})
 	}
 
 	imported.context = { client };
