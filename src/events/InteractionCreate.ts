@@ -87,12 +87,13 @@ export default new Event({
 		})
 			.then((): void => {
 				logger.info(
-					`${interaction.user.globalName} |> ${interactionType} triggered |> ${interactionIdentifier}`
+					`${interactionType} triggered by ${interaction.user.globalName} |> ${interactionIdentifier}`
 				);
 			})
 			.catch(async (error: Error) => {
 				logger.error(
-					`${interaction.user.globalName} |> ${interactionType} triggered |> ${interactionIdentifier}\n${error}`
+					`${interactionType} triggered by ${interaction.user.globalName} caught an error`
+					 +` |> ${interactionIdentifier}\n${error}`
 				);
 
 				// required for type guarding...

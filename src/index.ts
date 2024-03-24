@@ -67,7 +67,7 @@ await registerFiles<Event>("events", (imported: Event): void => {
 			}
 		})
 			.catch((error: Error): void => {
-				logger.error(`The event ${imported.parameters.event} threw an error: ${error}`);
+				logger.error(`Error caught in ${imported.parameters.event} event:\n${error}`);
 				notifyError(error);
 			})
 	}
