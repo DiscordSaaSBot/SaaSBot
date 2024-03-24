@@ -12,11 +12,12 @@ import {
 	SlashCommandContext,
 	UserCommandContext
 } from "./HandlerContext.js";
-import {ChatInputCommandInteraction, UserContextMenuCommandInteraction} from "discord.js";
+import { ChatInputCommandInteraction, UserContextMenuCommandInteraction } from "discord.js";
 
-export abstract class BaseBuilder
-	<TContext extends BaseContext, TParameters extends BaseParameters<TContext>> {
-
+export abstract class BaseBuilder<
+	TContext extends BaseContext,
+	TParameters extends BaseParameters<TContext>
+> {
 	private _context: TContext;
 	private readonly _parameters: TParameters;
 
@@ -39,19 +40,26 @@ export abstract class BaseBuilder
 
 export type CommandTypes = SlashCommand | UserCommand;
 
-export class SlashCommand extends BaseBuilder
-	<SlashCommandContext, CommandParameters<ChatInputCommandInteraction>> {}
+export class SlashCommand extends BaseBuilder<
+	SlashCommandContext,
+	CommandParameters<ChatInputCommandInteraction>
+> {}
 
-export class UserCommand extends BaseBuilder
-	<UserCommandContext, CommandParameters<UserContextMenuCommandInteraction>> {}
+export class UserCommand extends BaseBuilder<
+	UserCommandContext,
+	CommandParameters<UserContextMenuCommandInteraction>
+> {}
 
 export type ComponentTypes = ButtonInteraction | SelectMenuInteraction;
 
-export class ButtonInteraction extends BaseBuilder
-	<ButtonContext, ComponentParameters<ButtonContext>> {}
+export class ButtonInteraction extends BaseBuilder<
+	ButtonContext,
+	ComponentParameters<ButtonContext>
+> {}
 
-export class SelectMenuInteraction extends BaseBuilder
-	<SelectMenuContext, ComponentParameters<SelectMenuContext>> {}
+export class SelectMenuInteraction extends BaseBuilder<
+	SelectMenuContext,
+	ComponentParameters<SelectMenuContext>
+> {}
 
-export class Event extends BaseBuilder
-	<EventContext, EventParameters> {}
+export class Event extends BaseBuilder<EventContext, EventParameters> {}

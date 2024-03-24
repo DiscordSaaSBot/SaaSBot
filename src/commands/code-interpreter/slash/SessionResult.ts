@@ -1,20 +1,19 @@
-import {SlashCommand} from "../../../modules/handlers/HandlerBuilders.js";
-import {EmbedBuilder, SlashCommandBuilder} from "discord.js";
-import {CreateRunnerResponse} from "../utils/ApiTypes.js";
-import {checkRunnerDetails, checkRunnerStatus, getResultEmbed} from "../utils/RunnerUtils.js";
+import { SlashCommand } from "../../../modules/handlers/HandlerBuilders.js";
+import { EmbedBuilder, SlashCommandBuilder } from "discord.js";
+import { CreateRunnerResponse } from "../utils/ApiTypes.js";
+import { checkRunnerDetails, checkRunnerStatus, getResultEmbed } from "../utils/RunnerUtils.js";
 
 export default new SlashCommand({
 	builder: new SlashCommandBuilder()
 		.setName("code-session")
 		.setDescription("Get data from code sessions")
-		.addSubcommand(c => c
-			.setName("get-result")
-			.setDescription("Get result from a long running session")
-			.addStringOption(o => o
-				.setName("id")
-				.setDescription("The session ID")
-				.setRequired(true)
-			)
+		.addSubcommand((c) =>
+			c
+				.setName("get-result")
+				.setDescription("Get result from a long running session")
+				.addStringOption((o) =>
+					o.setName("id").setDescription("The session ID").setRequired(true)
+				)
 		),
 
 	async handler(): Promise<void> {
@@ -28,13 +27,13 @@ export default new SlashCommand({
 				.setTitle("On it!")
 				.setDescription(
 					"This runner is still running," +
-					"please, wait and run this command again in a few seconds"
+						"please, wait and run this command again in a few seconds"
 				)
 				.addFields(
-					{name: "Session ID", value: status.id, inline: true},
-					{name: "Status", value: status.status, inline: true}
+					{ name: "Session ID", value: status.id, inline: true },
+					{ name: "Status", value: status.status, inline: true }
 				)
-				.setColor("#FFA500")
+				.setColor("#FFA500");
 
 			await this.context.editReply({
 				embeds: [timeoutEmbed]
@@ -46,4 +45,4 @@ export default new SlashCommand({
 			embeds: [getResultEmbed(await checkRunnerDetails(sessionId))]
 		});
 	}
-})
+});

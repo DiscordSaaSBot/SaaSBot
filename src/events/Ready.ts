@@ -1,7 +1,7 @@
-import {Event} from "../modules/handlers/HandlerBuilders.js";
-import {ActivityOptions, ActivityType, Events} from "discord.js";
-import {logger} from "../modules/utils/logger.js";
-import {EventContext} from "../modules/handlers/HandlerContext.js";
+import { Event } from "../modules/handlers/HandlerBuilders.js";
+import { ActivityOptions, ActivityType, Events } from "discord.js";
+import { logger } from "../modules/utils/logger.js";
+import { EventContext } from "../modules/handlers/HandlerContext.js";
 
 const presences: ActivityOptions[] = [
 	{ name: "your SaaS projects", type: ActivityType.Watching },
