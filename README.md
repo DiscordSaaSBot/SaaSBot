@@ -42,7 +42,7 @@ The SaaS Discord Bot is a community-driven project aimed at facilitating the sha
 
 To install and run the SaaS Discord Bot locally, follow these steps:
 
-1. Clone the repository: `git clone https://github.com/DiscordSaaSBot`
+1. Clone the repository: `git clone https://github.com/DiscordSaaSBot/SaaSBot`
 2. Navigate to the project directory: `cd DiscordSaaSBot`
 3. Install dependencies using npm: `npm i`
 4. Set up the required environment variables by creating a `.env` file in the root directory of the project with the following content: ```DISCORD_TOKEN="your_discord_bot_token"
