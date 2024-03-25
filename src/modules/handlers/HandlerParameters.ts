@@ -1,4 +1,4 @@
-import {Events, Interaction, SlashCommandSubcommandsOnlyBuilder} from "discord.js";
+import { Events, Interaction, SlashCommandSubcommandsOnlyBuilder } from "discord.js";
 import {
 	BaseContext,
 	ButtonContext,
@@ -7,24 +7,18 @@ import {
 	SelectMenuContext
 } from "./HandlerContext.js";
 
-export interface BaseParameters<TThis extends BaseContext> {
+export type BaseParameters<TThis extends BaseContext> = {
 	handler: (this: TThis, ...params: any[]) => Promise<void> | void;
-}
+};
 
-export interface CommandParameters<TInteraction extends Interaction>
-	extends BaseParameters<CommandContext<TInteraction>> {
-
+export type CommandParameters<TInteraction extends Interaction> = {
 	builder: SlashCommandSubcommandsOnlyBuilder;
-}
+} & BaseParameters<CommandContext<TInteraction>>;
 
-export interface EventParameters
-	extends BaseParameters<EventContext> {
-
+export type EventParameters = {
 	event: Events;
-}
+} & BaseParameters<EventContext>;
 
-export interface ComponentParameters<TInteraction extends (ButtonContext | SelectMenuContext)>
-	extends BaseParameters<TInteraction> {
-
+export type ComponentParameters<TInteraction extends ButtonContext | SelectMenuContext> = {
 	componentId: string;
-}
+} & BaseParameters<TInteraction>;

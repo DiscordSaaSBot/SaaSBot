@@ -1,10 +1,9 @@
-
-export interface CreateRunnerResponse {
+export type CreateRunnerResponse = {
 	id: string;
 	status: "running" | "completed";
-}
+};
 
-export interface GetRunnerDetails {
+export type GetRunnerDetails = {
 	id: string;
 
 	build_stderr: string | null;
@@ -16,4 +15,4 @@ export interface GetRunnerDetails {
 	stderr: string | null;
 	result: "success" | "failure" | "error";
 	exit_code: number;
-}
+};
