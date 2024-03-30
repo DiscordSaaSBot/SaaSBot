@@ -1,4 +1,4 @@
-import { SlashCommand } from "../../../modules/handlers/HandlerBuilders.js";
+import { SlashCommand } from "@modules/handlers/HandlerBuilders.js";
 import { Attachment, EmbedBuilder, SlashCommandBuilder } from "discord.js";
 import { CreateRunnerResponse, GetRunnerDetails } from "../utils/ApiTypes.js";
 import {
