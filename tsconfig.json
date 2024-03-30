@@ -9,6 +9,12 @@
 		"skipLibCheck": true,
 		"rootDir": "src",
 		"outDir": "dist",
-		"strictPropertyInitialization": false
+		"strictPropertyInitialization": false,
+		"baseUrl": ".",
+		"paths": {
+			"@events/*": ["src/events/*"],
+			"@commands/*": ["src/commands/*"],
+			"@modules/*": ["src/modules/*"]
+		}
 	}
 }
