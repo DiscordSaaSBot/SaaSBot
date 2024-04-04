@@ -1,4 +1,4 @@
-import { SlashCommand } from "../../modules/handlers/HandlerBuilders.js";
+import { SlashCommand } from "@modules/handlers/HandlerBuilders.js";
 import { SlashCommandBuilder } from "discord.js";
 
 export default new SlashCommand({

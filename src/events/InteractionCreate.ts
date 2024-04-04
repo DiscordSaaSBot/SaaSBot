@@ -15,7 +15,7 @@ import {
 	SelectMenuInteraction,
 	UserContextMenuCommandInteraction
 } from "discord.js";
-import { logger, notifyError } from "../modules/utils/logger.js";
+import { logger, notifyError } from "@modules/utils/logger.js";
 
 export default new Event({
 	event: Events.InteractionCreate,

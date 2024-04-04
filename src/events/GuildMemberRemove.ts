@@ -1,7 +1,7 @@
-import { Event } from "../modules/handlers/HandlerBuilders.js";
+import { Event } from "@modules/handlers/HandlerBuilders.js";
 import { Events, GuildMember } from "discord.js";
-import { logger } from "../modules/utils/logger.js";
-import updateStats from "../modules/utils/updateStats.js";
+import { logger } from "@modules/utils/logger.js";
+import updateStats from "@modules/utils/updateStats.js";
 
 export default new Event({
 	event: Events.GuildMemberRemove,

@@ -1,6 +1,6 @@
-import { SlashCommand } from "../../modules/handlers/HandlerBuilders.js";
+import { SlashCommand } from "@modules/handlers/HandlerBuilders.js";
 import { ChannelType, PermissionFlagsBits, SlashCommandBuilder } from "discord.js";
-import { logger } from "../../modules/utils/logger.js";
+import { logger } from "@modules/utils/logger.js";
 
 export default new SlashCommand({
 	builder: new SlashCommandBuilder()
